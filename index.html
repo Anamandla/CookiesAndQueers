@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Cookies & Queers — Cape Town Queer Collective</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--orange:#F5820D;--lime:#D4E34A;--black:#141414;--offblack:#1e1e1e;--mid:#2e2e2e;--muted:#888;--white:#fafafa}
+html{scroll-behavior:smooth}
+body{background:var(--orange);font-family:'DM Sans',sans-serif;color:var(--black);overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+nav{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.25rem;background:var(--orange);border-bottom:2px solid var(--lime);position:sticky;top:0;z-index:200}
+.nav-logo{font-family:'Anton',sans-serif;font-size:1.1rem;letter-spacing:.04em;color:var(--lime);text-transform:uppercase}
+.nav-right{display:flex;align-items:center;gap:.75rem}
+.nav-btn{background:var(--lime);color:var(--black);border:none;padding:.55rem 1.1rem;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:opacity .2s;white-space:nowrap}
+.nav-btn:hover{opacity:.85}
+.hamburger{display:flex;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;background:none;border:1.5px solid var(--lime);border-radius:2px;cursor:pointer;padding:6px}
+.hamburger span{display:block;height:1.5px;background:var(--lime);border-radius:2px;transition:transform .3s,opacity .3s;transform-origin:center}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.nav-drawer{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--black);z-index:199;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2.5rem;transform:translateX(100%);transition:transform .4s cubic-bezier(.77,0,.175,1)}
+.nav-drawer.open{transform:translateX(0)}
+.drawer-link{font-family:'Anton',sans-serif;font-size:clamp(2.5rem,12vw,4rem);color:var(--lime);text-decoration:none;text-transform:uppercase;letter-spacing:.05em;transition:color .2s;line-height:1}
+.drawer-link:hover{color:var(--orange)}
+.drawer-cta{background:var(--orange);color:var(--black);padding:1rem 2.5rem;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.15em;text-transform:uppercase;border:none;cursor:pointer;border-radius:2px;margin-top:1rem}
+.nav-links{display:none;gap:2rem;list-style:none}
+.nav-links a{color:var(--lime);text-decoration:none;font-size:.8rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;transition:opacity .2s}
+.nav-links a:hover{opacity:.7}
+.hero{background:var(--orange);padding:clamp(2.5rem,8vw,5rem) 1.25rem clamp(2rem,6vw,4rem);text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:220px;height:220px;border:2px solid rgba(212,227,74,.15);border-radius:50%;pointer-events:none}
+.hero::after{content:'';position:absolute;bottom:-80px;left:-80px;width:300px;height:300px;border:2px solid rgba(212,227,74,.1);border-radius:50%;pointer-events:none}
+.hero-eyebrow{color:var(--lime);font-size:clamp(.65rem,2.5vw,.8rem);letter-spacing:.25em;text-transform:uppercase;font-weight:600;margin-bottom:1.25rem;display:flex;align-items:center;justify-content:center;gap:.75rem}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';display:block;width:28px;height:1.5px;background:var(--lime);flex-shrink:0}
+.hero-title{font-family:'Anton',sans-serif;font-size:clamp(4.5rem,22vw,11rem);line-height:.88;color:var(--lime);letter-spacing:.02em;text-transform:uppercase;animation:fadeUp .6s ease both}
+.hero-title:nth-child(3){animation-delay:.1s}
+.hero-title:nth-child(4){animation-delay:.2s}
+.hero-title.outline{-webkit-text-fill-color:transparent;-webkit-text-stroke:2.5px var(--lime);font-size:clamp(3.5rem,18vw,9rem)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.hero-tagline{color:var(--lime);font-size:clamp(.7rem,2.8vw,.9rem);letter-spacing:.12em;text-transform:uppercase;margin:1.5rem 0;font-weight:500;border-top:1.5px solid var(--lime);border-bottom:1.5px solid var(--lime);padding:.6rem 0;display:block;width:100%;animation:fadeUp .6s .3s ease both}
+.hero-cta-row{display:flex;gap:.75rem;justify-content:center;margin-top:2rem;flex-wrap:wrap;animation:fadeUp .6s .4s ease both}
+.btn-primary{background:var(--lime);color:var(--black);padding:.85rem 1.75rem;font-family:'DM Sans',sans-serif;font-size:clamp(.75rem,3vw,.85rem);font-weight:700;letter-spacing:.12em;text-transform:uppercase;border:none;cursor:pointer;border-radius:2px;transition:opacity .2s,transform .15s;min-height:48px}
+.btn-primary:hover{opacity:.85}
+.btn-primary:active{transform:scale(.97)}
+.btn-outline{background:transparent;color:var(--lime);padding:.85rem 1.75rem;font-family:'DM Sans',sans-serif;font-size:clamp(.75rem,3vw,.85rem);font-weight:700;letter-spacing:.12em;text-transform:uppercase;border:2px solid var(--lime);cursor:pointer;border-radius:2px;transition:opacity .2s,transform .15s;min-height:48px}
+.btn-outline:hover{opacity:.7}
+.ticker{background:var(--lime);padding:.65rem 0;overflow:hidden;white-space:nowrap}
+.ticker-inner{display:inline-block;animation:ticker 22s linear infinite}
+.ticker-item{display:inline-block;font-family:'Anton',sans-serif;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--black);padding:0 1.5rem}
+.ticker-item::after{content:' ✦ ';color:var(--orange)}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.event-banner{background:var(--black);color:var(--lime);padding:clamp(2rem,6vw,3rem) 1.25rem}
+.event-banner-inner{display:grid;grid-template-columns:1fr;gap:1.5rem;max-width:900px;margin:0 auto}
+.event-banner-label{font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:var(--orange);margin-bottom:.4rem}
+.event-banner-name{font-family:'Anton',sans-serif;font-size:clamp(2.5rem,10vw,3.5rem);line-height:1;color:var(--lime);text-transform:uppercase}
+.event-banner-sub{font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--orange);margin-top:.5rem}
+.event-date-block{display:flex;align-items:center;gap:1.25rem;border-top:1.5px solid #333;border-bottom:1.5px solid #333;padding:1.25rem 0}
+.event-date-num{font-family:'Anton',sans-serif;font-size:clamp(3.5rem,14vw,5rem);line-height:1;color:var(--orange)}
+.event-date-details{display:flex;flex-direction:column;gap:.2rem}
+.event-date-month{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--lime)}
+.event-meta{display:flex;flex-direction:column;gap:.75rem}
+.event-meta-label{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:.15rem}
+.event-meta-value{font-weight:700;font-size:.9rem;color:var(--lime);letter-spacing:.05em}
+.ticket-btn{display:inline-flex;align-items:center;justify-content:center;background:var(--orange);color:var(--black);padding:.85rem 1.75rem;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;border:none;cursor:pointer;border-radius:2px;transition:opacity .2s;min-height:48px;width:100%}
+.ticket-btn:hover{opacity:.85}
+.about-strip{background:var(--lime);padding:clamp(2.5rem,8vw,5rem) 1.25rem}
+.about-strip h2{font-family:'Anton',sans-serif;font-size:clamp(2.2rem,9vw,3rem);text-transform:uppercase;line-height:1;color:var(--black);margin-bottom:1.25rem}
+.about-strip h2 span{color:var(--orange)}
+.about-strip>div:first-child p{font-size:clamp(.9rem,3.5vw,1rem);line-height:1.8;color:#2a2a2a;margin-bottom:1rem}
+.pillars{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:2rem}
+.pillar{background:var(--black);padding:1.25rem;border-radius:2px}
+.pillar-icon{font-size:1.3rem;margin-bottom:.4rem}
+.pillar h3{font-family:'Anton',sans-serif;font-size:.95rem;letter-spacing:.05em;color:var(--lime);text-transform:uppercase;margin-bottom:.3rem}
+.pillar p{font-size:.78rem;color:#aaa;line-height:1.5;margin:0}
+.events-section{background:var(--orange);padding:clamp(2.5rem,8vw,5rem) 1.25rem}
+.section-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2rem;border-bottom:2px solid var(--lime);padding-bottom:.75rem}
+.section-title{font-family:'Anton',sans-serif;font-size:clamp(1.8rem,7vw,2.5rem);color:var(--lime);text-transform:uppercase}
+.section-link{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--lime);text-decoration:none;font-weight:600;white-space:nowrap}
+.events-scroll-wrapper{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -1.25rem;padding:0 1.25rem}
+.events-scroll-wrapper::-webkit-scrollbar{display:none}
+.events-grid{display:flex;gap:1rem;width:max-content;padding-bottom:.5rem}
+.event-card{background:var(--black);border-radius:2px;overflow:hidden;width:280px;flex-shrink:0;display:flex;flex-direction:column}
+.event-card-img{height:180px;position:relative;flex-shrink:0;background:#222;overflow:hidden}
+.event-card-img img{width:100%;height:100%;object-fit:cover;display:block}
+.event-card-badge{position:absolute;top:.75rem;left:.75rem;background:var(--orange);color:var(--black);font-size:.6rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:.25rem .6rem;border-radius:1px;z-index:2}
+.event-card-badge.past-badge{background:#555;color:#ccc}
+.event-card-body{padding:1rem;flex:1}
+.event-card-date{font-size:.65rem;letter-spacing:.15em;color:var(--orange);text-transform:uppercase;margin-bottom:.35rem}
+.event-card-name{font-family:'Anton',sans-serif;font-size:1.2rem;color:var(--lime);text-transform:uppercase;margin-bottom:.35rem}
+.event-card-venue{font-size:.7rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.event-card-footer{border-top:1px solid #2e2e2e;padding:.75rem 1rem;display:flex;justify-content:space-between;align-items:center;gap:.5rem}
+.event-card-price{font-size:.7rem;color:#aaa}
+.event-card-price strong{color:var(--lime)}
+.event-card-btn{font-family:'DM Sans',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--lime);background:transparent;border:1px solid var(--lime);padding:.45rem .85rem;cursor:pointer;border-radius:1px;transition:background .2s,color .2s;min-height:36px;white-space:nowrap}
+.event-card-btn:hover{background:var(--lime);color:var(--black)}
+.scroll-hint{text-align:center;font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--lime);opacity:.6;margin-top:1rem}
+.events-category-label{font-family:'Anton',sans-serif;font-size:clamp(1rem,4vw,1.3rem);color:var(--lime);text-transform:uppercase;letter-spacing:.1em;margin-bottom:1rem;padding-bottom:.5rem;border-bottom:1px solid rgba(212,227,74,.25);display:flex;align-items:center;gap:.75rem}
+.cat-dot{width:8px;height:8px;border-radius:50%;background:var(--orange);flex-shrink:0}
+.cat-dot.past{background:#555}
+.events-block{margin-bottom:3rem}
+.gallery-section{background:var(--black);padding:clamp(2.5rem,8vw,5rem) 1.25rem}
+.gallery-section .section-header{border-bottom-color:var(--lime)}
+.gallery-section .section-title{color:var(--lime)}
+.gallery-event-group{margin-bottom:3rem}
+.gallery-event-title{font-family:'Anton',sans-serif;font-size:clamp(1.4rem,6vw,2rem);color:var(--lime);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.35rem}
+.gallery-event-meta{font-size:.7rem;letter-spacing:.15em;color:var(--orange);text-transform:uppercase;margin-bottom:1.25rem}
+.photo-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.5rem}
+.photo-thumb{aspect-ratio:4/3;overflow:hidden;background:#2a2a2a;cursor:pointer;position:relative;border-radius:2px}
+.photo-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .3s,opacity .3s;display:block}
+.photo-thumb:hover img{transform:scale(1.05);opacity:.85}
+.gallery-empty-cell{grid-column:1/-1;text-align:center;padding:3rem 1rem;color:#3a3a3a;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;border:1px dashed #2a2a2a;border-radius:2px}
+.gallery-divider{border:none;border-top:1px solid #232323;margin:2.5rem 0}
+.lightbox-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.96);z-index:1000;align-items:center;justify-content:center;padding:1rem}
+.lightbox-overlay.active{display:flex}
+.lightbox-img{max-width:100%;max-height:90vh;object-fit:contain;border-radius:2px}
+.lb-close{position:fixed;top:1rem;right:1rem;width:40px;height:40px;background:rgba(255,255,255,.1);border:1px solid #444;border-radius:2px;color:#fff;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:1001}
+.lb-nav{position:fixed;top:50%;transform:translateY(-50%);width:44px;height:70px;background:rgba(255,255,255,.07);border:none;color:#fff;font-size:1.4rem;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:1001}
+.lb-nav.prev{left:.25rem}
+.lb-nav.next{right:.25rem}
+.lb-count{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:#888;z-index:1001}
+.manifesto{background:var(--black);padding:clamp(3rem,10vw,6rem) 1.25rem;text-align:center}
+.manifesto-label{font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:var(--orange);margin-bottom:1.5rem}
+.manifesto-quote{font-family:'Anton',sans-serif;font-size:clamp(1.6rem,6.5vw,4rem);color:var(--lime);text-transform:uppercase;line-height:1.1;max-width:900px;margin:0 auto 2rem}
+.manifesto-sub{color:var(--muted);font-size:clamp(.85rem,3.5vw,.9rem);max-width:480px;margin:0 auto;line-height:1.7}
+.manifesto-values{display:flex;justify-content:center;gap:clamp(1rem,4vw,3rem);margin-top:2.5rem;flex-wrap:wrap}
+.value-item{text-align:center}
+.value-dot{width:6px;height:6px;border-radius:50%;background:var(--orange);margin:0 auto .6rem}
+.value-label{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:#aaa}
+.community{background:var(--orange);padding:clamp(2.5rem,8vw,5rem) 1.25rem}
+.community-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--black);margin-top:2rem}
+.community-cell{background:var(--orange);aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-family:'Anton',sans-serif;font-size:clamp(.9rem,3.5vw,1.1rem);text-transform:uppercase;color:var(--lime);letter-spacing:.04em;text-align:center;padding:.75rem;transition:transform .2s}
+.community-cell:hover{transform:scale(.97)}
+.community-cell.dark{background:var(--black);color:var(--orange)}
+.community-cell.lime{background:var(--lime);color:var(--black)}
+.newsletter{background:var(--lime);padding:clamp(2.5rem,8vw,5rem) 1.25rem;text-align:center}
+.newsletter h2{font-family:'Anton',sans-serif;font-size:clamp(2rem,8vw,2.5rem);text-transform:uppercase;color:var(--black);margin-bottom:.5rem}
+.newsletter p{color:#444;margin-bottom:2rem;font-size:clamp(.85rem,3.5vw,.95rem)}
+.newsletter-form{display:flex;flex-direction:column;gap:.75rem;max-width:420px;margin:0 auto}
+.newsletter-input{width:100%;padding:1rem 1.25rem;border:2px solid var(--black);font-size:1rem;background:#fff;outline:none;border-radius:2px;font-family:'DM Sans',sans-serif;min-height:52px}
+.newsletter-submit{width:100%;padding:1rem 1.5rem;background:var(--black);color:var(--lime);border:none;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:opacity .2s;min-height:52px}
+.newsletter-submit:hover{opacity:.85}
+.newsletter-success{display:none;background:var(--black);color:var(--lime);padding:1.25rem;border-radius:2px;font-family:'Anton',sans-serif;font-size:1rem;letter-spacing:.08em;text-transform:uppercase}
+footer{background:var(--black);padding:clamp(2rem,6vw,3rem) 1.25rem;display:grid;grid-template-columns:1fr;gap:2rem;border-top:2px solid var(--lime)}
+.footer-brand{font-family:'Anton',sans-serif;font-size:1.4rem;color:var(--lime);letter-spacing:.05em;margin-bottom:.75rem}
+.footer-desc{font-size:.82rem;color:var(--muted);line-height:1.7;max-width:320px}
+.footer-cols{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+footer h4{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin-bottom:.85rem}
+footer ul{list-style:none}
+footer ul li{margin-bottom:.5rem}
+footer ul a{font-size:.85rem;color:var(--muted);text-decoration:none;transition:color .2s}
+footer ul a:hover{color:var(--lime)}
+.footer-bottom{background:var(--black);padding:1rem 1.25rem;border-top:1px solid #2e2e2e;display:flex;flex-direction:column;align-items:center;gap:.75rem;text-align:center}
+.footer-bottom p{font-size:.7rem;color:#555;letter-spacing:.04em}
+.social-row{display:flex;gap:.75rem}
+.social-link{width:36px;height:36px;border:1px solid #333;border-radius:2px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.7rem;font-weight:700;text-decoration:none;transition:border-color .2s,color .2s}
+.social-link:hover{border-color:var(--lime);color:var(--lime)}
+.confetti-container{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;overflow:hidden}
+.confetti-piece{position:absolute;opacity:0;animation:confettiFall 1.8s ease-in forwards}
+@keyframes confettiFall{0%{opacity:1;transform:translateY(0) rotate(0deg)}100%{opacity:0;transform:translateY(100vh) rotate(720deg)}}
+@media(min-width:700px){
+  nav{padding:1.1rem 2.5rem}
+  .hamburger{display:none}
+  .nav-links{display:flex}
+  .event-banner-inner{grid-template-columns:1fr auto 1fr;gap:2rem;align-items:center}
+  .event-date-block{border:none;border-left:1.5px solid #333;border-right:1.5px solid #333;padding:1.5rem 2rem;flex-direction:column;gap:.2rem;text-align:center}
+  .event-meta{align-items:flex-end;text-align:right}
+  .ticket-btn{width:auto}
+  .about-strip{display:grid;grid-template-columns:1fr 1fr;gap:3rem;padding:4rem 2.5rem;align-items:start}
+  .pillars{margin-top:0}
+  .events-scroll-wrapper{overflow-x:visible;margin:0;padding:0}
+  .events-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;width:auto}
+  .event-card{width:auto}
+  .scroll-hint{display:none}
+  .photo-grid{grid-template-columns:repeat(3,1fr)}
+  .community-grid{grid-template-columns:repeat(4,1fr)}
+  .newsletter-form{flex-direction:row;gap:0}
+  .newsletter-input{border-right:none;border-radius:2px 0 0 2px}
+  .newsletter-submit{width:auto;border-radius:0 2px 2px 0;white-space:nowrap}
+  footer{grid-template-columns:2fr 1fr 1fr;padding:3rem 2.5rem;gap:3rem}
+  .footer-cols{display:contents}
+  .footer-bottom{flex-direction:row;justify-content:space-between;padding:1.25rem 2.5rem;text-align:left}
+  .events-section,.community,.manifesto,.newsletter{padding:4rem 2.5rem}
+  .gallery-section{padding:4rem 2.5rem}
+}
+@media(min-width:1000px){.photo-grid{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+
+<div class="confetti-container" id="confetti"></div>
+
+<div class="lightbox-overlay" id="lightbox">
+  <button class="lb-close" onclick="closeLb()">✕</button>
+  <button class="lb-nav prev" id="lbPrev" onclick="lbNav(-1)">‹</button>
+  <img class="lightbox-img" id="lbImg" src="" alt="">
+  <button class="lb-nav next" id="lbNext" onclick="lbNav(1)">›</button>
+  <div class="lb-count" id="lbCount"></div>
+</div>
+
+<div class="nav-drawer" id="navDrawer" aria-hidden="true">
+  <a class="drawer-link" href="#events" onclick="closeMenu()">Events</a>
+  <a class="drawer-link" href="#gallery" onclick="closeMenu()">Gallery</a>
+  <a class="drawer-link" href="#about" onclick="closeMenu()">About</a>
+  <a class="drawer-link" href="#community" onclick="closeMenu()">Community</a>
+  <a class="drawer-link" href="#newsletter" onclick="closeMenu()">Contact</a>
+  <button class="drawer-cta" onclick="window.open('https://quicket.co.za','_blank');closeMenu()">Get Tickets →</button>
+</div>
+
+<nav>
+  <div class="nav-logo">Cookies & Queers</div>
+  <ul class="nav-links">
+    <li><a href="#events">Events</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#community">Community</a></li>
+    <li><a href="#newsletter">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="nav-btn" onclick="window.open('https://quicket.co.za','_blank')">Get Tickets</button>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-eyebrow">Queer Collective · Cape Town</div>
+  <div class="hero-title">Cookies</div>
+  <div class="hero-title outline">&amp;</div>
+  <div class="hero-title">Queers</div>
+  <div class="hero-tagline">Where crumbs and community meet — queerjoy freshly baked</div>
+  <div class="hero-cta-row">
+    <button class="btn-primary" onclick="goTo('events')">Upcoming Events</button>
+    <button class="btn-outline" onclick="goTo('gallery')">Photo Gallery</button>
+  </div>
+</section>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-inner">
+    <span class="ticker-item">Safe Spaces</span><span class="ticker-item">Queer Joy</span><span class="ticker-item">Cape Town</span><span class="ticker-item">Dance Floors</span><span class="ticker-item">Community</span><span class="ticker-item">Care &amp; Consent</span><span class="ticker-item">No Cliques</span><span class="ticker-item">Come As You Are</span><span class="ticker-item">Safe Spaces</span><span class="ticker-item">Queer Joy</span><span class="ticker-item">Cape Town</span><span class="ticker-item">Dance Floors</span><span class="ticker-item">Community</span><span class="ticker-item">Care &amp; Consent</span><span class="ticker-item">No Cliques</span><span class="ticker-item">Come As You Are</span>
+  </div>
+</div>
+
+<section class="event-banner" id="featured">
+  <div class="event-banner-inner">
+    <div>
+      <div class="event-banner-label">Cookies &amp; Queers Presents</div>
+      <div class="event-banner-name">Navigate You<br>Workshop</div>
+      <div class="event-banner-sub">Conversations That Heal, Connect & Empower</div>
+    </div>
+    <div class="event-date-block">
+      <div class="event-date-num">27</div>
+      <div class="event-date-details">
+        <div class="event-date-month">Jul 2026</div>
+        <div class="event-date-month" style="color:var(--muted)">Mon · 13:00</div>
+      </div>
+    </div>
+    <div class="event-meta">
+      <div><div class="event-meta-label">Venue</div><div class="event-meta-value">Cape Town · Venue TBA</div></div>
+      <div><div class="event-meta-label">Tickets</div><div class="event-meta-value">Coming Soon</div></div>
+      <button class="ticket-btn" onclick="goTo('newsletter')">Notify Me →</button>
+    </div>
+  </div>
+</section>
+
+<section class="about-strip" id="about">
+  <div>
+    <h2>Where the<br><span>community</span><br>comes first.</h2>
+    <p>Cookies &amp; Queers is a queer events collective rooted in Cape Town. We create safe, celebratory spaces where LGBTQIA+ folks can connect, play, and be fully themselves.</p>
+    <p>From intimate socials to dance floors and creative workshops — our events are tailored to our community, centring care, consent, and access.</p>
+  </div>
+  <div class="pillars">
+    <div class="pillar"><div class="pillar-icon">🏠</div><h3>Safe Spaces</h3><p>No cliques, no pressure. Just good people and great energy.</p></div>
+    <div class="pillar"><div class="pillar-icon">🎵</div><h3>Local Talent</h3><p>We platform queer artists, DJs, and creatives from the community.</p></div>
+    <div class="pillar"><div class="pillar-icon">✊</div><h3>Consent First</h3><p>Every event is grounded in care, access, and mutual respect.</p></div>
+    <div class="pillar"><div class="pillar-icon">🍪</div><h3>(Yes) Cookies</h3><p>Because every celebration deserves something sweet.</p></div>
+  </div>
+</section>
+
+<section class="events-section" id="events">
+  <div class="section-header">
+    <div class="section-title">Events</div>
+    <a class="section-link" href="https://quicket.co.za" target="_blank">All tickets →</a>
+  </div>
+  <div id="upcomingBlock" class="events-block">
+    <div class="events-category-label"><span class="cat-dot"></span>Upcoming</div>
+    <div class="events-scroll-wrapper"><div class="events-grid" id="upcomingGrid"></div></div>
+    <div class="scroll-hint">← swipe to see more →</div>
+  </div>
+  <div id="pastBlock" class="events-block">
+    <div class="events-category-label"><span class="cat-dot past"></span>Past Events</div>
+    <div class="events-scroll-wrapper"><div class="events-grid" id="pastGrid"></div></div>
+    <div class="scroll-hint">← swipe to see more →</div>
+  </div>
+</section>
+
+<section class="gallery-section" id="gallery">
+  <div class="section-header">
+    <div class="section-title">Gallery</div>
+    <a class="section-link" href="https://instagram.com/cookiesandqueers" target="_blank">@cookiesandqueers →</a>
+  </div>
+  <div id="galleryContent"></div>
+</section>
+
+<section class="manifesto">
+  <div class="manifesto-label">Our Manifesto</div>
+  <div class="manifesto-quote">"No cliques. No pressure. Just good people, great energy, and (yes) cookies."</div>
+  <p class="manifesto-sub">We partner with local queer artists, DJs, and venues to platform talent and keep the circle sustainable. Come as you are.</p>
+  <div class="manifesto-values">
+    <div class="value-item"><div class="value-dot"></div><div class="value-label">Care</div></div>
+    <div class="value-item"><div class="value-dot"></div><div class="value-label">Consent</div></div>
+    <div class="value-item"><div class="value-dot"></div><div class="value-label">Access</div></div>
+    <div class="value-item"><div class="value-dot"></div><div class="value-label">Community</div></div>
+    <div class="value-item"><div class="value-dot"></div><div class="value-label">Queerjoy</div></div>
+  </div>
+</section>
+
+<section class="community" id="community">
+  <div class="section-header">
+    <div class="section-title">The Community</div>
+    <a class="section-link" href="https://instagram.com/cookiesandqueers" target="_blank">@cookiesandqueers →</a>
+  </div>
+  <div class="community-grid">
+    <div class="community-cell dark">200+ People</div>
+    <div class="community-cell">Dance Floors</div>
+    <div class="community-cell lime">DJ Sets</div>
+    <div class="community-cell dark">Cypher Sessions</div>
+    <div class="community-cell lime">Creatives</div>
+    <div class="community-cell dark">Artists</div>
+    <div class="community-cell">Fashionistas</div>
+    <div class="community-cell lime">Free Spirits</div>
+  </div>
+</section>
+
+<section class="newsletter" id="newsletter">
+  <h2>Stay in the loop</h2>
+  <p>Be first to hear about upcoming events, ticket drops, and community news.</p>
+  <div class="newsletter-form" id="newsletterForm">
+    <input class="newsletter-input" type="email" id="emailInput" placeholder="your@email.com" aria-label="Email address">
+    <button class="newsletter-submit" onclick="handleSubscribe()">Subscribe ✦</button>
+  </div>
+  <div class="newsletter-success" id="newsletterSuccess">🍪 You're in! Welcome to the collective.</div>
+</section>
+
+<footer>
+  <div>
+    <div class="footer-brand">Cookies &amp; Queers</div>
+    <div class="footer-desc">A queer events collective rooted in Cape Town. Creating safe, celebratory spaces where LGBTQIA+ folks can connect, play, and be fully themselves.</div>
+  </div>
+  <div class="footer-cols">
+    <div>
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="#events">Events</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#community">Community</a></li>
+        <li><a href="https://quicket.co.za" target="_blank">Get Tickets</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="https://instagram.com/cookiesandqueers" target="_blank">Instagram</a></li>
+        <li><a href="https://quicket.co.za" target="_blank">Quicket</a></li>
+        <li><a href="#newsletter">Contact Us</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<div class="footer-bottom">
+  <p>© 2025 Cookies &amp; Queers · Cape Town · All rights reserved</p>
+  <div class="social-row">
+    <a class="social-link" href="https://instagram.com/cookiesandqueers" target="_blank">IG</a>
+    <a class="social-link" href="https://quicket.co.za" target="_blank">QK</a>
+  </div>
+</div>
+
+<script>
+/* ════════════════════════════════════════════════════════════════════════
+   EDIT YOUR CONTENT BELOW — everything else in this file you can ignore.
+   ════════════════════════════════════════════════════════════════════════ */
+
+// ─── 1. EVENTS ───────────────────────────────────────────────────────────
+// Image paths are RELATIVE to this HTML file's location.
+//
+//   /images/events/PotluckPicnic.jpg
+//   /images/events/TheColourParty.jpeg
+//   /images/events/TheRedAffair.jpg
+//   /images/gallery/back90/back90-1.jpeg ... back90-10.jpeg
+//
+// ⚠️ date/venue/price for the three new events below are PLACEHOLDERS —
+// swap them for the real details once confirmed. Dates only need to be
+// roughly right for the upcoming/past sorting to work correctly.
+const EVENTS = [
+  {
+    id: 'back90',
+    name: 'Back to the 90s',
+    date: '2025-05-09',
+    display: '9 May 2025 · 19:00',
+    venue: 'Zevolis, Rondebosch · Cape Town',
+    price: 'From R100',
+    ticketUrl: 'https://quicket.co.za',
+    img: 'images/gallery/back90/back90-5.jpeg'
+  },
+  {
+    id: 'potluck',
+    name: 'Potluck Picnic',
+    date: '2026-09-05', // ⚠️ placeholder date
+    display: '05 Sep 2026 · 12:00',
+    venue: 'Cape Town · Company Gardens, Cape Town',
+    price: 'Tickets TBA',
+    ticketUrl: null,
+    img: 'images/events/PotluckPicnic.jpg'
+  },
+  {
+    id: 'colourparty',
+    name: 'The Colour Party',
+    date: '2026-10-31', // ⚠️ placeholder date
+    display: '31 Oct 2026 · 19:00',
+    venue: 'Cape Town · Zevolis, 28 Main Road, Rondebosch',
+    price: 'Tickets TBA',
+    ticketUrl: null,
+    img: 'images/events/TheColourParty.jpeg'
+  },
+  {
+    id: 'redaffair',
+    name: 'The Red Affair',
+    date: '2026-08-01', // ⚠️ placeholder date
+    display: '01 Aug 2026 · 18:00',
+    venue: 'Cape Town ·  Zevolis, 28 Main Road, Rondebosch',
+    price: 'Tickets TBA',
+    ticketUrl: null,
+    img: 'images/events/TheRedAffair.jpg'
+  },
+  {
+    id: 'navigateyou',
+    name: 'Navigate You Workshop',
+    date: '2026-07-27', // ⚠️ placeholder date
+    display: '27 Jul 2026 · 13:00',
+    venue: 'Cape Town ·  TBA Venue',
+    price: 'Tickets TBA',
+    ticketUrl: null,
+    img: 'images/events/NavigateYou.png'
+  }
+];
+
+// ─── 2. PAST EVENT PHOTOS ────────────────────────────────────────────────
+// Add one entry per past event id (must match an id above).
+const GALLERY_PHOTOS = {
+  back90: [
+    'images/gallery/back90/back90-1.jpeg',
+    'images/gallery/back90/back90-2.jpeg',
+    'images/gallery/back90/back90-3.jpeg',
+    'images/gallery/back90/back90-4.jpeg',
+    'images/gallery/back90/back90-5.jpeg',
+    'images/gallery/back90/back90-6.jpeg',
+    'images/gallery/back90/back90-7.jpeg',
+    'images/gallery/back90/back90-8.jpeg',
+    'images/gallery/back90/back90-9.jpeg',
+    'images/gallery/back90/back90-10.jpeg'
+  ]
+};
+
+/* ════════════════════════════════════════════════════════════════════════
+   END OF EDITABLE SECTION
+   ════════════════════════════════════════════════════════════════════════ */
+
+let lbPhotos = [], lbIdx = 0;
+
+function isPast(d) { const t=new Date();t.setHours(0,0,0,0);return new Date(d)<t; }
+
+function buildEvents() {
+  const upcoming = EVENTS.filter(e => !isPast(e.date));
+  const past = EVENTS.filter(e => isPast(e.date));
+  function card(ev) {
+    const p = isPast(ev.date);
+    const badge = p
+      ? `<div class="event-card-badge past-badge">Past</div>`
+      : `<div class="event-card-badge">Upcoming</div>`;
+    const btn = ev.ticketUrl
+      ? `<button class="event-card-btn" onclick="window.open('${ev.ticketUrl}','_blank')">Get Tickets</button>`
+      : `<button class="event-card-btn" onclick="goTo('newsletter')">Notify Me</button>`;
+    return `<div class="event-card">
+      <div class="event-card-img">${badge}<img src="${ev.img}" alt="${ev.name}" loading="lazy"></div>
+      <div class="event-card-body">
+        <div class="event-card-date">${ev.display}</div>
+        <div class="event-card-name">${ev.name}</div>
+        <div class="event-card-venue">${ev.venue}</div>
+      </div>
+      <div class="event-card-footer">
+        <div class="event-card-price"><strong>${ev.price}</strong></div>${btn}
+      </div></div>`;
+  }
+  const ug = document.getElementById('upcomingGrid');
+  const pg = document.getElementById('pastGrid');
+  if (upcoming.length) { ug.innerHTML = upcoming.map(card).join(''); document.getElementById('upcomingBlock').style.display=''; }
+  else document.getElementById('upcomingBlock').style.display = 'none';
+  if (past.length) { pg.innerHTML = past.map(card).join(''); document.getElementById('pastBlock').style.display=''; }
+  else document.getElementById('pastBlock').style.display = 'none';
+}
+
+function buildGallery() {
+  const pastEvents = EVENTS.filter(e => isPast(e.date));
+  const gc = document.getElementById('galleryContent');
+  if (!pastEvents.length) {
+    gc.innerHTML = '<div style="text-align:center;padding:4rem 1rem;color:#3a3a3a;font-size:.85rem;letter-spacing:.12em;text-transform:uppercase">No past events yet — check back after the first event!</div>';
+    return;
+  }
+  gc.innerHTML = pastEvents.map((ev, i) => {
+    const photos = GALLERY_PHOTOS[ev.id] || [];
+    const thumbs = photos.map((url, idx) => `
+      <div class="photo-thumb" onclick="openLb('${ev.id}',${idx})">
+        <img src="${url}" alt="Photo from ${ev.name}" loading="lazy">
+      </div>`).join('');
+    const empty = !photos.length
+      ? `<div class="gallery-empty-cell">No photos yet for this event</div>`
+      : '';
+    const divider = i > 0 ? '<hr class="gallery-divider">' : '';
+    return `${divider}<div class="gallery-event-group">
+      <div class="gallery-event-title">${ev.name}</div>
+      <div class="gallery-event-meta">${ev.display} · ${ev.venue}</div>
+      <div class="photo-grid">${thumbs}${empty}</div>
+    </div>`;
+  }).join('');
+}
+
+function openLb(eid, idx) {
+  lbPhotos = GALLERY_PHOTOS[eid] || [];
+  if (!lbPhotos.length) return;
+  lbIdx = idx;
+  showLb();
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function showLb() {
+  document.getElementById('lbImg').src = lbPhotos[lbIdx];
+  const multi = lbPhotos.length > 1;
+  document.getElementById('lbPrev').style.display = multi ? 'flex' : 'none';
+  document.getElementById('lbNext').style.display = multi ? 'flex' : 'none';
+  document.getElementById('lbCount').textContent = multi ? `${lbIdx+1} / ${lbPhotos.length}` : '';
+}
+function lbNav(d) { lbIdx=(lbIdx+d+lbPhotos.length)%lbPhotos.length; showLb(); }
+function closeLb() { document.getElementById('lightbox').classList.remove('active'); document.body.style.overflow=''; }
+document.getElementById('lightbox').addEventListener('click', e => { if(e.target===e.currentTarget) closeLb(); });
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('active')) return;
+  if (e.key==='Escape') closeLb();
+  if (e.key==='ArrowLeft') lbNav(-1);
+  if (e.key==='ArrowRight') lbNav(1);
+});
+
+function goTo(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})}
+function toggleMenu(){
+  const d=document.getElementById('navDrawer'),b=document.getElementById('hamburger');
+  const o=d.classList.toggle('open');b.classList.toggle('open');
+  d.setAttribute('aria-hidden',!o);document.body.style.overflow=o?'hidden':'';
+}
+function closeMenu(){
+  document.getElementById('navDrawer').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('navDrawer').setAttribute('aria-hidden','true');
+  document.body.style.overflow='';
+}
+
+function handleSubscribe(){
+  const i=document.getElementById('emailInput');
+  if(!i.value||!i.value.includes('@')){i.style.borderColor='#e8621a';i.focus();return;}
+  document.getElementById('newsletterForm').style.display='none';
+  document.getElementById('newsletterSuccess').style.display='block';
+  launchConfetti();
+}
+function launchConfetti(){
+  const c=document.getElementById('confetti');
+  const cols=['#F5820D','#D4E34A','#141414','#fff','#e8621a'];
+  for(let i=0;i<60;i++){
+    const p=document.createElement('div');p.className='confetti-piece';
+    p.style.cssText=`left:${Math.random()*100}vw;top:-10px;background:${cols[i%5]};border-radius:${Math.random()>.5?'50%':'0'};width:${Math.random()*8+4}px;height:${Math.random()*8+4}px;animation-duration:${Math.random()*1.2+1}s;animation-delay:${Math.random()*.5}s`;
+    c.appendChild(p);
+  }
+  setTimeout(()=>c.innerHTML='',3000);
+}
+
+buildEvents();
+buildGallery();
+</script>
+</body>
+</html>
