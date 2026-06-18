@@ -82,7 +82,7 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:1rem 1
 .events-scroll-wrapper::-webkit-scrollbar{display:none}
 .events-grid{display:flex;gap:1rem;width:max-content;padding-bottom:.5rem}
 .event-card{background:var(--black);border-radius:2px;overflow:hidden;width:280px;flex-shrink:0;display:flex;flex-direction:column}
-.event-card-img{height:180px;position:relative;flex-shrink:0;background:#222;overflow:hidden}
+.event-card-img{aspect-ratio:1/1;width:100%;position:relative;flex-shrink:0;background:#222;overflow:hidden}
 .event-card-img img{width:100%;height:100%;object-fit:cover;display:block}
 .event-card-badge{position:absolute;top:.75rem;left:.75rem;background:var(--orange);color:var(--black);font-size:.6rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;padding:.25rem .6rem;border-radius:1px;z-index:2}
 .event-card-badge.past-badge{background:#555;color:#ccc}
@@ -247,14 +247,14 @@ footer ul a:hover{color:var(--lime)}
   <div class="event-banner-inner">
     <div>
       <div class="event-banner-label">Cookies &amp; Queers Presents</div>
-      <div class="event-banner-name">Navigate You<br>Workshop</div>
-      <div class="event-banner-sub">Conversations That Heal, Connect & Empower</div>
+      <div class="event-banner-name">Potluck<br>Picnic</div>
+      <div class="event-banner-sub">Bring a Dish, Share the Vibe</div>
     </div>
     <div class="event-date-block">
-      <div class="event-date-num">27</div>
+      <div class="event-date-num">15</div>
       <div class="event-date-details">
-        <div class="event-date-month">Jul 2026</div>
-        <div class="event-date-month" style="color:var(--muted)">Mon · 13:00</div>
+        <div class="event-date-month">Aug 2026</div>
+        <div class="event-date-month" style="color:var(--muted)">Sat · 12:00</div>
       </div>
     </div>
     <div class="event-meta">
@@ -404,14 +404,14 @@ const EVENTS = [
     venue: 'Zevolis, Rondebosch · Cape Town',
     price: 'From R100',
     ticketUrl: 'https://quicket.co.za',
-    img: 'images/gallery/back90/back90-5.jpeg'
+    img: 'images/gallery/back90/back90-1.jpeg'
   },
   {
     id: 'potluck',
     name: 'Potluck Picnic',
-    date: '2026-09-05', // ⚠️ placeholder date
-    display: '05 Sep 2026 · 12:00',
-    venue: 'Cape Town · Company Gardens, Cape Town',
+    date: '2026-08-15', // ⚠️ placeholder date
+    display: '15 Aug 2026 · 12:00',
+    venue: 'Cape Town · Venue TBA',
     price: 'Tickets TBA',
     ticketUrl: null,
     img: 'images/events/PotluckPicnic.jpg'
@@ -419,9 +419,9 @@ const EVENTS = [
   {
     id: 'colourparty',
     name: 'The Colour Party',
-    date: '2026-10-31', // ⚠️ placeholder date
-    display: '31 Oct 2026 · 19:00',
-    venue: 'Cape Town · Zevolis, 28 Main Road, Rondebosch',
+    date: '2026-09-12', // ⚠️ placeholder date
+    display: '12 Sep 2026 · 19:00',
+    venue: 'Cape Town · Venue TBA',
     price: 'Tickets TBA',
     ticketUrl: null,
     img: 'images/events/TheColourParty.jpeg'
@@ -429,22 +429,12 @@ const EVENTS = [
   {
     id: 'redaffair',
     name: 'The Red Affair',
-    date: '2026-08-01', // ⚠️ placeholder date
-    display: '01 Aug 2026 · 18:00',
-    venue: 'Cape Town ·  Zevolis, 28 Main Road, Rondebosch',
+    date: '2026-10-31', // ⚠️ placeholder date
+    display: '31 Oct 2026 · 20:00',
+    venue: 'Cape Town · Venue TBA',
     price: 'Tickets TBA',
     ticketUrl: null,
     img: 'images/events/TheRedAffair.jpg'
-  },
-  {
-    id: 'navigateyou',
-    name: 'Navigate You Workshop',
-    date: '2026-07-27', // ⚠️ placeholder date
-    display: '27 Jul 2026 · 13:00',
-    venue: 'Cape Town ·  TBA Venue',
-    price: 'Tickets TBA',
-    ticketUrl: null,
-    img: 'images/events/NavigateYou.png'
   }
 ];
 
